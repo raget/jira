@@ -7,7 +7,8 @@ A simple command-line tool to create Jira issues in a Cloud instance. This tool 
 - Create Jira issues with explicit arguments
 - Supports Jira Cloud instances
 - Uses Atlassian Document Format for descriptions
-- Creates Bug type issues by default
+- Supports both Bug and Task issue types
+- Sets High priority by default
 - Provides clear error messages and output
 
 ## Prerequisites
@@ -35,23 +36,31 @@ cargo install --path .
 
 ## Usage
 
-Create a new Jira issue with explicit arguments:
+Create a new Jira issue using the create command:
 
 ```bash
-jira --project <PROJECT> --summary <SUMMARY> --description <DESCRIPTION>
+jira create --project <PROJECT> --summary <SUMMARY> --description <DESCRIPTION> [--issue-type <TYPE>]
 ```
 
 ### Example
 
 ```bash
-jira --project SBT --summary "Fix login page bug" --description "The login page is not working properly"
+# Create a bug (default)
+jira create --project SBT --summary "Fix login page bug" --description "The login page is not working properly"
+
+# Create a task (case insensitive)
+jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support" --type task
+jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support" --type TASK
+jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support" --type Task
 ```
 
 ### Arguments
 
+- `create`: Command to create a new issue
 - `--project`: The key of the Jira project where the issue will be created (e.g., "SBT")
 - `--summary`: The summary/title of the issue
 - `--description`: The detailed description of the issue
+- `--type`: Type of the issue (bug or task, case insensitive), defaults to bug
 
 ### Output
 
@@ -72,7 +81,7 @@ Summary: Fix login page bug
 To run the tool during development:
 
 ```bash
-cargo run -- --project <PROJECT> --summary <SUMMARY> --description <DESCRIPTION>
+cargo run -- create --project <PROJECT> --summary <SUMMARY> --description <DESCRIPTION> [--issue-type <TYPE>]
 ```
 
 ## Error Handling
@@ -92,10 +101,15 @@ Cursor can use this tool to create Jira issues directly from the editor. Here ar
 Create a Jira bug for the login page issue with the description "Users cannot log in after password reset"
 ```
 
+2. Create a task:
+```
+Create a Jira task for implementing dark mode in the application
+```
 
 The tool will automatically:
 - Format the description in Atlassian Document Format
-- Set the issue type to Bug
+- Set the issue type (Bug or Task)
+- Set the priority to High
 - Provide the issue URL and key in the output
 
 ## Project Structure
