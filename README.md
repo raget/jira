@@ -49,9 +49,9 @@ jira create --project <PROJECT> --summary <SUMMARY> --description <DESCRIPTION> 
 jira create --project SBT --summary "Fix login page bug" --description "The login page is not working properly"
 
 # Create a task (case insensitive)
-jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support" --type task
-jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support" --type TASK
-jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support" --type Task
+jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support"
+jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support"
+jira create --project SBT --summary "Implement dark mode" --description "Add dark mode support"
 ```
 
 ### Arguments
@@ -117,7 +117,9 @@ The tool will automatically:
 ```
 .
 ├── src/
-│   └── main.rs      # Main CLI implementation
+│   ├── main.rs      # Main CLI implementation
+│   ├── commands.rs  # Command definitions
+│   └── jira.rs      # Jira API client implementation
 ├── Cargo.toml       # Project dependencies
 ├── .env            # Environment variables (not in version control)
 └── README.md       # This file
@@ -129,6 +131,7 @@ The tool will automatically:
 - reqwest: HTTP client
 - serde_json: JSON handling
 - dotenv: Environment variable management
+- chrono: Date and time handling
 
 ## License
 
